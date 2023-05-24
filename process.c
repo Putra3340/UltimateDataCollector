@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 #include "connect.h"
+// The logs write update every 1 sec
 
 void GetProcessName(DWORD processId, LPWSTR processName, DWORD bufferSize)
 {

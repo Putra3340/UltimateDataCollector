@@ -36,9 +36,15 @@
     <ClCompile Include="docs.c">
       <Filter>Source Files\Documents</Filter>
     </ClCompile>
+    <ClCompile Include="build.cpp">
+      <Filter>Source Files\SystemInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
