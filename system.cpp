@@ -16,11 +16,31 @@ void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,i
         return;
     }
 
-    // Get system information
+    // Get current time
     std::time_t currentTime = std::time(nullptr);
     char timeBuffer[26];
     asctime_s(timeBuffer, sizeof(timeBuffer), std::localtime(&currentTime));
 
+    // get build number
+    OSVERSIONINFOEX osvi;
+    ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+    osvi.dwMajorVersion = HIBYTE(_WIN32_WINNT_WIN10);
+    osvi.dwMinorVersion = LOBYTE(_WIN32_WINNT_WIN10);
+    osvi.wServicePackMajor = 0;
+    osvi.wServicePackMinor = 0;
+
+    DWORDLONG conditionMask = 0;
+    VER_SET_CONDITION(conditionMask, VER_MAJORVERSION, VER_EQUAL);
+    VER_SET_CONDITION(conditionMask, VER_MINORVERSION, VER_EQUAL);
+    VER_SET_CONDITION(conditionMask, VER_SERVICEPACKMAJOR, VER_EQUAL);
+    VER_SET_CONDITION(conditionMask, VER_SERVICEPACKMINOR, VER_EQUAL);
+
+    if (VerifyVersionInfo(&osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR, conditionMask)) {
+        // Display the build number
+        std::cout << "Windows Build Number: " << osvi.dwBuildNumber << std::endl;
+    }
+    
 
     // Write system information to the file
     outputFile << "System Information" << std::endl;
@@ -30,7 +50,7 @@ void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,i
     outputFile << "Computer Name: " << ComputerName << std::endl;
     outputFile << "Windows Version: " << osver << std::endl;
     // Next update is:
-//    outputFile << "Build Number: " << osVersionInfo.dwBuildNumber << std::endl;
+    outputFile << "Build Number: " << osvi.dwBuildNumber << std::endl;
 
     // Close the file
     outputFile.close();

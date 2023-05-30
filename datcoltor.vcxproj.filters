@@ -22,6 +22,9 @@
     <Filter Include="Source Files\SystemInfo">
       <UniqueIdentifier>{709e730b-6df4-46f7-a638-551f2080d507}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PythonFiles">
+      <UniqueIdentifier>{b7937e89-83be-431c-9a9c-893dad55fe8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -33,7 +36,7 @@
     <ClCompile Include="system.cpp">
       <Filter>Source Files\SystemInfo</Filter>
     </ClCompile>
-    <ClCompile Include="docs.c">
+    <ClCompile Include="docs.cpp">
       <Filter>Source Files\Documents</Filter>
     </ClCompile>
     <ClCompile Include="build.cpp">
@@ -47,5 +50,10 @@
     <ClInclude Include="cpp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="encryptdocs.py">
+      <Filter>Source Files\PythonFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>
