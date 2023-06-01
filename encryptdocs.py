@@ -1,6 +1,6 @@
 # Edit it yourself if needed
 # pip install pyinstaller
-# Compile using "pyinstaller pythonfile.py"
+# Compile using "pyinstaller --onefile --noconsole pythonfile.py"
 # Sorry Compile it yourself bcs i didn't download python dev on visual studio eheh
 # i think no need to edit
 import zipfile

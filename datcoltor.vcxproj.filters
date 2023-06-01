@@ -25,6 +25,9 @@
     <Filter Include="Source Files\PythonFiles">
       <UniqueIdentifier>{b7937e89-83be-431c-9a9c-893dad55fe8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Dir">
+      <UniqueIdentifier>{4c06b1cd-a7eb-48c6-b3b6-30e6a3899884}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -42,12 +45,27 @@
     <ClCompile Include="build.cpp">
       <Filter>Source Files\SystemInfo</Filter>
     </ClCompile>
+    <ClCompile Include="tree.c">
+      <Filter>Source Files\Dir</Filter>
+    </ClCompile>
+    <ClCompile Include="ctree.c">
+      <Filter>Source Files\Dir</Filter>
+    </ClCompile>
+    <ClCompile Include="dtree.c">
+      <Filter>Source Files\Dir</Filter>
+    </ClCompile>
+    <ClCompile Include="etree.c">
+      <Filter>Source Files\Dir</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cpp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

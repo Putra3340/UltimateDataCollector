@@ -129,14 +129,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="build.cpp" />
+    <ClCompile Include="ctree.c" />
     <ClCompile Include="docs.cpp" />
+    <ClCompile Include="dtree.c" />
+    <ClCompile Include="etree.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="system.cpp" />
     <ClCompile Include="process.c" />
+    <ClCompile Include="tree.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h" />
     <ClInclude Include="cpp.h" />
+    <ClInclude Include="tree.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="encryptdocs.py" />
