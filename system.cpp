@@ -8,7 +8,7 @@
 #include <Windows.h>
 
 
-void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,int osver, std::string WindowsUsername) {
+void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,int osver, std::string WindowsUsername,std::string BuildNum) {
     // Open the output file
     std::ofstream outputFile(filename);
     if (!outputFile) {
@@ -21,7 +21,7 @@ void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,i
     char timeBuffer[26];
     asctime_s(timeBuffer, sizeof(timeBuffer), std::localtime(&currentTime));
 
-    // get build number
+    // get build number (Bugged)
     OSVERSIONINFOEX osvi;
     ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
     osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
@@ -50,7 +50,7 @@ void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,i
     outputFile << "Computer Name: " << ComputerName << std::endl;
     outputFile << "Windows Version: " << osver << std::endl;
     // Next update is:
-    outputFile << "Build Number: " << osvi.dwBuildNumber << std::endl;
+    outputFile << "Build Number: " << BuildNum << std::endl;
 
     // Close the file
     outputFile.close();
@@ -58,8 +58,8 @@ void saveSystemInfoToFile(const std::string& filename,std::string ComputerName,i
     std::cout << "System information saved to " << filename << " successfully." << std::endl;
 }
 
-void GetThatSystemInfo(std::string ComputerName,int osver,std::string WindowsUsername) {
+void GetThatSystemInfo(std::string ComputerName,int osver,std::string WindowsUsername,std::string BuildNum) {
     std::string filename = "system_info.txt";
-    saveSystemInfoToFile(filename,ComputerName,osver,WindowsUsername);
+    saveSystemInfoToFile(filename,ComputerName,osver,WindowsUsername,BuildNum);
 }
 
