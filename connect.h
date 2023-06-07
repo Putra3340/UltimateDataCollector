@@ -4,7 +4,7 @@ extern "C" {
 
     // Declaration for the C function in a C file
     void GetProcessInfo();
-    void GetAllDocs();
+    //void GetAllDocs();
     void DirCheck();
     // Declaration for the C++ function in a C++ file
     void DetailedComputerInfo();

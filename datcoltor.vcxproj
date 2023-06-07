@@ -71,6 +71,16 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ExecutablePath>E:\vcpkg-master\installed\x86-windows\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>E:\vcpkg-master\installed\x86-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\vcpkg-master\installed\x86-windows\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -81,6 +91,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>boost_filesystem-vc140-mt.lib;minizip.lib;zlib.lib;/NODEFAULTLIB:MSVCRT;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,6 +120,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,17 +146,20 @@
     <ClCompile Include="dtree.c" />
     <ClCompile Include="etree.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="system.cpp" />
     <ClCompile Include="process.c" />
+    <ClCompile Include="systeminfo.cpp" />
     <ClCompile Include="tree.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h" />
-    <ClInclude Include="cpp.h" />
     <ClInclude Include="tree.h" />
+    <ClInclude Include="writer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="encryptdocs.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="junk.cpp.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

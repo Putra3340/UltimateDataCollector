@@ -28,6 +28,12 @@
     <Filter Include="Source Files\Dir">
       <UniqueIdentifier>{4c06b1cd-a7eb-48c6-b3b6-30e6a3899884}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Writer">
+      <UniqueIdentifier>{795a857a-c571-49ac-9fd9-06829a465b47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Trash">
+      <UniqueIdentifier>{0ab8505f-a452-4b47-8f7f-a7ee89d2df67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -35,9 +41,6 @@
     </ClCompile>
     <ClCompile Include="process.c">
       <Filter>Source Files\Process</Filter>
-    </ClCompile>
-    <ClCompile Include="system.cpp">
-      <Filter>Source Files\SystemInfo</Filter>
     </ClCompile>
     <ClCompile Include="docs.cpp">
       <Filter>Source Files\Documents</Filter>
@@ -57,15 +60,18 @@
     <ClCompile Include="etree.c">
       <Filter>Source Files\Dir</Filter>
     </ClCompile>
+    <ClCompile Include="systeminfo.cpp">
+      <Filter>Source Files\Writer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cpp.h">
+    <ClInclude Include="tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tree.h">
+    <ClInclude Include="writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -73,5 +79,10 @@
     <None Include="encryptdocs.py">
       <Filter>Source Files\PythonFiles</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="junk.cpp.txt">
+      <Filter>Source Files\Trash</Filter>
+    </Text>
   </ItemGroup>
 </Project>

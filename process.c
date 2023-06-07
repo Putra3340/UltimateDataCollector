@@ -3,6 +3,7 @@
 #include <TlHelp32.h>
 #include "connect.h"
 // The logs write update every 1 sec
+// i turned off the update
 
 void GetProcessName(DWORD processId, LPWSTR processName, DWORD bufferSize)
 {
@@ -36,8 +37,7 @@ void GetProcessInfo()
 {
     char previousProgram[MAX_PATH] = "";
 
-    while (1)
-    {
+    
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot != INVALID_HANDLE_VALUE)
         {
@@ -68,5 +68,5 @@ void GetProcessInfo()
         }
 
         Sleep(1000);
-    }
+    
 }
