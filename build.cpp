@@ -17,38 +17,27 @@ using namespace std;
 
 
 void DetailedComputerInfo() {
-	// Build Number from regedit
 	HKEY hKey;
 	DWORD dwType, dwSize;
-	char szBuildNumber[50];
 
-	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
-		dwSize = sizeof(szBuildNumber);
-		if (RegQueryValueExA(hKey, "BuildLabEx", NULL, &dwType, reinterpret_cast<LPBYTE>(szBuildNumber), &dwSize) == ERROR_SUCCESS) {
-			if (dwType == REG_SZ) {
-			}
-		}
-	}
+	// Build Number from regedit
+	char szBuildNumber[50];
+	RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey);
+	dwSize = sizeof(szBuildNumber);
+	RegQueryValueExA(hKey, "BuildLabEx", NULL, &dwType, reinterpret_cast<LPBYTE>(szBuildNumber), &dwSize);
+
 	// New get windows ver
 	char szWindowsVersion[50];
-
-	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
-		dwSize = sizeof(szWindowsVersion);
-		if (RegQueryValueExA(hKey, "ProductName", NULL, &dwType, reinterpret_cast<LPBYTE>(szWindowsVersion), &dwSize) == ERROR_SUCCESS) {
-			if (dwType == REG_SZ) {
-			}
-		}
-	}
+	RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", 0, KEY_READ, &hKey);
+	dwSize = sizeof(szWindowsVersion);
+	RegQueryValueExA(hKey, "ProductName", NULL, &dwType, reinterpret_cast<LPBYTE>(szWindowsVersion), &dwSize);
+	
 	// get CPU
 	char szProcessorName[75];
-
-	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
-		dwSize = sizeof(szProcessorName);
-		if (RegQueryValueExA(hKey, "ProcessorNameString", NULL, &dwType, reinterpret_cast<LPBYTE>(szProcessorName), &dwSize) == ERROR_SUCCESS) {
-			if (dwType == REG_SZ) {
-			}
-		}
-	}
+	RegOpenKeyExA(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+	dwSize = sizeof(szProcessorName);
+	RegQueryValueExA(hKey, "ProcessorNameString", NULL, &dwType, reinterpret_cast<LPBYTE>(szProcessorName), &dwSize);
+	
 	// get ram total
 	MEMORYSTATUSEX memInfo;
 	memInfo.dwLength = sizeof(memInfo);
@@ -65,7 +54,7 @@ void DetailedComputerInfo() {
 	d3d->Release();
 
 	// get windows ver...old but im still using it
-	int osver = 0.0;
+	double osver = 0.0;
 	NTSTATUS(WINAPI * RtlGetVersion)(LPOSVERSIONINFOEXW);
 	OSVERSIONINFOEXW osInfo;
 	*(FARPROC*)&RtlGetVersion = GetProcAddress(GetModuleHandleA("ntdll"), "RtlGetVersion");
