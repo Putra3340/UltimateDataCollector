@@ -4,3 +4,6 @@
 
 /.vs
 /x64/Debug
+/x64/Release
+/program_log.txt
+/system_info.txt
