@@ -1,4 +1,5 @@
 #include "writerc.h"
+#include "debug.h"
 #include <stdio.h>
 #include <Windows.h>
 #include <TlHelp32.h>
@@ -24,7 +25,6 @@ void GetProcessInfo()
 {
     char previousProgram[MAX_PATH] = "";
 
-    //while (1) {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot != INVALID_HANDLE_VALUE)
         {
@@ -55,5 +55,6 @@ void GetProcessInfo()
         }
 
         Sleep(1000);
-    //}
+
+    debout("Process", 1, "Done Writing");
 }

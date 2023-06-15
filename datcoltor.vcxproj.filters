@@ -34,9 +34,6 @@
     <Filter Include="Source Files\Trash">
       <UniqueIdentifier>{0ab8505f-a452-4b47-8f7f-a7ee89d2df67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Disk">
-      <UniqueIdentifier>{6119d965-09ec-47b9-afc9-e9060129060c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -69,8 +66,8 @@
     <ClCompile Include="wprocess.c">
       <Filter>Source Files\Writer</Filter>
     </ClCompile>
-    <ClCompile Include="count.c">
-      <Filter>Source Files\Disk</Filter>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writerc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

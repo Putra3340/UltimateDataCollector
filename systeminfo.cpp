@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <chrono>
 #include "connect.h"
+#include "debug.h"
 #include <locale>
 #include <codecvt>
 #include <ctime>
@@ -13,6 +14,8 @@
 #include <d3d9.h>
 #include <comdef.h>
 #include <WbemIdl.h>
+#include <winioctl.h>
+#include <ntddstor.h>
 #pragma comment(lib, "wbemuuid.lib")
 #pragma comment(lib, "d3d9.lib")
 using namespace std;
@@ -29,6 +32,7 @@ std::string wstringToString(const std::wstring& wstr) {
 }
 
 void DetailedComputerInfo() {
+    debout("Gathering sysinfo", 2, "Running");
 	// How many disks
 	// this is tough WMI ----------------------------------------------------------------------------------------------
 	HRESULT hr;
@@ -132,7 +136,6 @@ void DetailedComputerInfo() {
         hr = pClsObj->Get(L"DeviceID", 0, &vtProp, 0, 0);
         if (SUCCEEDED(hr)) {
             diskcount++;
-            std::wcout << L"Disk: " << vtProp.bstrVal << std::endl;
             VariantClear(&vtProp);
         }
         hr = pClsObj->Get(L"NetConnectionID", 0, &vtProp, 0, 0);
@@ -161,6 +164,63 @@ void DetailedComputerInfo() {
 		}
 		drives >>= 1;
 	}
+
+    // Disk 0 Info
+    HANDLE hDevice = CreateFile(
+        L"\\\\.\\PhysicalDrive0",
+        GENERIC_READ | GENERIC_WRITE,
+        FILE_SHARE_READ | FILE_SHARE_WRITE,
+        NULL,
+        OPEN_EXISTING,
+        0,
+        NULL
+    );
+
+    if (hDevice == INVALID_HANDLE_VALUE) {
+        std::cerr << "Failed to open the device." << std::endl;
+    }
+
+    STORAGE_PROPERTY_QUERY query{};
+    query.PropertyId = StorageDeviceProperty;
+    query.QueryType = PropertyStandardQuery;
+    GET_LENGTH_INFORMATION lengthInfo;
+    DWORD bytesReturned = 0;
+    std::vector<BYTE> buffer(4096);
+
+    if (!DeviceIoControl(
+        hDevice,
+        IOCTL_DISK_GET_LENGTH_INFO,
+        NULL,
+        0,
+        &lengthInfo,
+        sizeof(lengthInfo),
+        &bytesReturned,
+        NULL
+    )) {
+        std::cerr << "Failed to get disk length information." << std::endl;
+        CloseHandle(hDevice); 
+    }
+    if (!DeviceIoControl(
+        hDevice,
+        IOCTL_STORAGE_QUERY_PROPERTY,
+        &query,
+        sizeof(query),
+        buffer.data(),
+        static_cast<DWORD>(buffer.size()),
+        &bytesReturned,
+        NULL
+    )) {
+        std::cerr << "Failed to query disk properties." << std::endl;
+        CloseHandle(hDevice);
+    }
+    STORAGE_DEVICE_DESCRIPTOR* deviceDescriptor = reinterpret_cast<STORAGE_DEVICE_DESCRIPTOR*>(buffer.data());
+    CloseHandle(hDevice);
+    const char* diskName = reinterpret_cast<const char*>(buffer.data()) + deviceDescriptor->ProductIdOffset;
+    std::string diskoname(diskName);
+    ULONGLONG diskSizeBytes = lengthInfo.Length.QuadPart;
+    const double GB = 1024 * 1024 * 1024;
+    double diskSizeGB = static_cast<double>(diskSizeBytes) / GB;
+    
 
 	HKEY hKey;
 	DWORD dwType, dwSize;
@@ -219,22 +279,40 @@ void DetailedComputerInfo() {
 	if (GetComputerNameA(computerName, &size)) {
 		// idk when i put computerName var out of if condition its fucking bugged
 		std::string sysfilename = "system_info.txt";
-		// System Information
         pEnumerator->Release();
         pSvc->Release();
         pLoc->Release();
         CoUninitialize();
+        // Debugging Info
+        debout("Gathering", 1, "Done");
+        std::cout << "System info Detail:" << std::endl;
 		std::cout << computerName << std::endl; 
 		std::cout << osver << endl;
 		std::cout << username << std::endl;
-		std::cout << szBuildNumber;
-		std::cout << szWindowsVersion;
-		std::cout << szProcessorName;
-		std::cout << totalram;
-		std::cout << gpuName;
-		std::cout << diskcount;
-        std::cout << interNames;
-		saveSystemInfoToFile(sysfilename,computerName, osver, username,szBuildNumber,szWindowsVersion,szProcessorName,totalram,gpuName,diskcount,partcount,intcount,interNames);
+        std::cout << szBuildNumber << std::endl;
+        std::cout << szWindowsVersion << std::endl;
+        std::cout << szProcessorName << std::endl;
+		std::cout << totalram << std::endl;
+		std::cout << gpuName << std::endl;
+		std::cout << diskcount << std::endl;
+        std::cout << interNames << std::endl;
+        std::cout << "------------------------------------------"<<std::endl;
+		saveSystemInfoToFile(
+            sysfilename,
+            computerName,
+            osver,
+            username,
+            szBuildNumber,
+            szWindowsVersion,
+            szProcessorName,
+            totalram,
+            gpuName,
+            diskcount,
+            partcount,
+            intcount,
+            interNames,
+            diskoname,
+            diskSizeGB);
 	}
 	
 }

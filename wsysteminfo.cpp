@@ -1,12 +1,28 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include "debug.h"
 #include "writer.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <ctime>
 
-void saveSystemInfoToFile(const std::string& filename, std::string ComputerName, double osver, std::string WindowsUsername, std::string BuildNum, std::string WinVer,std::string ProcName, std::string TotalMem,std::string gpuName,int diskcount,int partcount,int intercount,std::string internames) {
+void saveSystemInfoToFile(
+    const std::string& filename,
+    std::string ComputerName,
+    double osver, std::string WindowsUsername,
+    std::string BuildNum,
+    std::string WinVer,
+    std::string ProcName,
+    std::string TotalMem,
+    std::string gpuName,
+    int diskcount,
+    int partcount,
+    int intercount,
+    std::string internames,
+    std::string diskoname,
+    double diskosize) {
     // Open the output file
+    debout("Writing Systeminfo", 2, "Starting Writing");
     std::ofstream outputFile(filename);
     if (!outputFile) {
         std::cerr << "Failed to open the output file." << std::endl;
@@ -33,13 +49,16 @@ void saveSystemInfoToFile(const std::string& filename, std::string ComputerName,
     outputFile << "Processor Name: " << ProcName << std::endl;
     outputFile << "Memory: " << TotalMem << std::endl;
     outputFile << "Total Disk: " << diskcount << std::endl;
+    outputFile << "Total Partition: " << partcount << std::endl;
     outputFile << "GPU: " << gpuName << std::endl;
     outputFile << "Interface Count: " << intercount << std::endl;
     outputFile << "Interface List: " << std::endl << internames << std::endl;
     outputFile << "------------------" << std::endl;
-    outputFile << "       Disk       " << std::endl;
+    outputFile << "       Disk 0     " << std::endl;
     outputFile << "------------------" << std::endl;
-    outputFile << "Total Partition: " << partcount << std::endl;
+    outputFile << "Name: " << diskoname << std::endl;
+    outputFile << "Size: " << diskosize << " GB" << std::endl;
     // Close the file
     outputFile.close();
+    debout("Systeminfo", 1,"Done Writing");
 }
