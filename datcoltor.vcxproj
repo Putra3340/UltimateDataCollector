@@ -140,18 +140,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="build.cpp" />
+    <ClCompile Include="count.c" />
+    <ClCompile Include="systeminfo.cpp" />
     <ClCompile Include="ctree.c" />
     <ClCompile Include="docs.cpp" />
     <ClCompile Include="dtree.c" />
     <ClCompile Include="etree.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="process.c" />
-    <ClCompile Include="systeminfo.cpp" />
+    <ClCompile Include="wsysteminfo.cpp" />
     <ClCompile Include="tree.c" />
+    <ClCompile Include="wprocess.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h" />
+    <ClInclude Include="writerc.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="writer.h" />
   </ItemGroup>

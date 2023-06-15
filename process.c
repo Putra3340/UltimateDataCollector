@@ -1,9 +1,10 @@
+#include "writerc.h"
 #include <stdio.h>
 #include <Windows.h>
 #include <TlHelp32.h>
 #include "connect.h"
 // The logs write update every 1 sec
-// i turned off the update
+// i turned off the update for easy debugging
 
 void GetProcessName(DWORD processId, LPWSTR processName, DWORD bufferSize)
 {
@@ -19,25 +20,11 @@ void GetProcessName(DWORD processId, LPWSTR processName, DWORD bufferSize)
     }
 }
 
-void LogProgram(const char* programName)
-{
-    FILE* logFile;
-    if (fopen_s(&logFile, "program_log.txt", "a") == 0)
-    {
-        fprintf(logFile, "%s\n", programName);
-        fclose(logFile);
-    }
-    else
-    {
-        fprintf(stderr, "Error opening log file.\n");
-    }
-}
-
 void GetProcessInfo()
 {
     char previousProgram[MAX_PATH] = "";
 
-    
+    //while (1) {
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (hSnapshot != INVALID_HANDLE_VALUE)
         {
@@ -68,5 +55,5 @@ void GetProcessInfo()
         }
 
         Sleep(1000);
-    
+    //}
 }

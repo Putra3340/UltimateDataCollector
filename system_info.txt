@@ -1,0 +1,14 @@
+------------------
+System Information
+------------------
+Username: Administrator
+Date and Time: Thu Jun 15 16:52:45 2023
+Computer Name: WIN-H2724A54JLI
+Windows Version: Windows 10 Pro (10)
+Build Number: 19041.1.amd64fre.vb_release.191206-1406
+------------------
+       Specs      
+------------------
+Processor Name: AMD A9-9425 RADEON R5, 5 COMPUTE CORES 2C+3G   
+Memory: 7129
+GPU: AMD Radeon(TM) R5 Graphics
