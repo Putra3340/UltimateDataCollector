@@ -215,12 +215,74 @@ void DetailedComputerInfo() {
     }
     STORAGE_DEVICE_DESCRIPTOR* deviceDescriptor = reinterpret_cast<STORAGE_DEVICE_DESCRIPTOR*>(buffer.data());
     CloseHandle(hDevice);
-    const char* diskName = reinterpret_cast<const char*>(buffer.data()) + deviceDescriptor->ProductIdOffset;
-    std::string diskoname(diskName);
+    const char* diskoName = reinterpret_cast<const char*>(buffer.data()) + deviceDescriptor->ProductIdOffset;
+    std::string diskoname(diskoName);
     ULONGLONG diskSizeBytes = lengthInfo.Length.QuadPart;
     const double GB = 1024 * 1024 * 1024;
-    double diskSizeGB = static_cast<double>(diskSizeBytes) / GB;
+    double diskoSizeGB = static_cast<double>(diskSizeBytes) / GB;
     
+    // Disk 1 Info
+    std::string diskiName;
+    double diskiSizeGB = 0.0;
+
+    if (diskcount == 2) {
+        HANDLE hDevice = CreateFile(
+            L"\\\\.\\PhysicalDrive1",
+            GENERIC_READ | GENERIC_WRITE,
+            FILE_SHARE_READ | FILE_SHARE_WRITE,
+            NULL,
+            OPEN_EXISTING,
+            0,
+            NULL
+        );
+
+        if (hDevice == INVALID_HANDLE_VALUE) {
+            std::cerr << "Failed to open the device." << std::endl;
+        }
+
+        STORAGE_PROPERTY_QUERY query{};
+        query.PropertyId = StorageDeviceProperty;
+        query.QueryType = PropertyStandardQuery;
+        GET_LENGTH_INFORMATION lengthInfo{};
+        DWORD bytesReturned = 0;
+        std::vector<BYTE> buffer(4096);
+
+        if (!DeviceIoControl(
+            hDevice,
+            IOCTL_DISK_GET_LENGTH_INFO,
+            NULL,
+            0,
+            &lengthInfo,
+            sizeof(lengthInfo),
+            &bytesReturned,
+            NULL
+        )) {
+            std::cerr << "Failed to get disk length information." << std::endl;
+            CloseHandle(hDevice);
+        }
+        if (!DeviceIoControl(
+            hDevice,
+            IOCTL_STORAGE_QUERY_PROPERTY,
+            &query,
+            sizeof(query),
+            buffer.data(),
+            static_cast<DWORD>(buffer.size()),
+            &bytesReturned,
+            NULL
+        )) {
+            std::cerr << "Failed to query disk properties." << std::endl;
+            CloseHandle(hDevice);
+        }
+
+        STORAGE_DEVICE_DESCRIPTOR* deviceDescriptor = reinterpret_cast<STORAGE_DEVICE_DESCRIPTOR*>(buffer.data());
+        CloseHandle(hDevice);
+        const char* diskiNamePtr = reinterpret_cast<const char*>(buffer.data()) + deviceDescriptor->ProductIdOffset;
+        diskiName = diskiNamePtr;
+        ULONGLONG diskSizeBytes = lengthInfo.Length.QuadPart;
+        const double GB = 1024 * 1024 * 1024;
+        diskiSizeGB = static_cast<double>(diskSizeBytes) / GB;
+    }
+
 
 	HKEY hKey;
 	DWORD dwType, dwSize;
@@ -296,6 +358,7 @@ void DetailedComputerInfo() {
 		std::cout << gpuName << std::endl;
 		std::cout << diskcount << std::endl;
         std::cout << interNames << std::endl;
+
         std::cout << "------------------------------------------"<<std::endl;
 		saveSystemInfoToFile(
             sysfilename,
@@ -312,7 +375,10 @@ void DetailedComputerInfo() {
             intcount,
             interNames,
             diskoname,
-            diskSizeGB);
+            diskoSizeGB,
+            diskiName,
+            diskiSizeGB
+            );
 	}
 	
 }

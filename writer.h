@@ -14,5 +14,7 @@ void saveSystemInfoToFile(const std::string& filename,
 	int intercount,
 	std::string internames,
 	std::string diskoname,
-	double diskosize
+	double diskosize,
+	std::string diskiname,
+	double diskizise
 );

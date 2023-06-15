@@ -20,7 +20,10 @@ void saveSystemInfoToFile(
     int intercount,
     std::string internames,
     std::string diskoname,
-    double diskosize) {
+    double diskosize,
+    std::string diskiname,
+    double diskisize
+) {
     // Open the output file
     debout("Writing Systeminfo", 2, "Starting Writing");
     std::ofstream outputFile(filename);
@@ -58,6 +61,15 @@ void saveSystemInfoToFile(
     outputFile << "------------------" << std::endl;
     outputFile << "Name: " << diskoname << std::endl;
     outputFile << "Size: " << diskosize << " GB" << std::endl;
+    if (diskcount == 2)
+    {
+        outputFile << "------------------" << std::endl;
+        outputFile << "       Disk 1     " << std::endl;
+        outputFile << "------------------" << std::endl;
+        outputFile << "Name: " << diskiname << std::endl;
+        outputFile << "Size: " << diskisize << " GB" << std::endl;
+    }
+    
     // Close the file
     outputFile.close();
     debout("Systeminfo", 1,"Done Writing");
