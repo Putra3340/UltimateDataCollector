@@ -23,6 +23,7 @@ void GetProcessName(DWORD processId, LPWSTR processName, DWORD bufferSize)
 
 void GetProcessInfo()
 {
+    debout("Process", 2, "Running");
     char previousProgram[MAX_PATH] = "";
 
         HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -56,5 +57,5 @@ void GetProcessInfo()
 
         Sleep(1000);
 
-    debout("Process", 1, "Done Writing");
+    debout("Process", 1, "Done");
 }

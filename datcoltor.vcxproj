@@ -140,12 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ddir.c" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="edir.c" />
     <ClCompile Include="systeminfo.cpp" />
     <ClCompile Include="ctree.c" />
-    <ClCompile Include="docs.cpp" />
-    <ClCompile Include="dtree.c" />
-    <ClCompile Include="etree.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="process.c" />
     <ClCompile Include="wsysteminfo.cpp" />
@@ -160,7 +159,7 @@
     <ClInclude Include="writer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="encryptdocs.py" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="junk.cpp.txt" />

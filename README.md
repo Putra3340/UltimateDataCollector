@@ -1,10 +1,7 @@
 # UltimateDataCollector
 An ULTIMATE Program that can record all your activities..... HAPPY SPYING :>
 
-# LOG FILE
-<p>program_log.txt
-<p>system_info.txt
-<p>c.txt
-<p>d.txt (bugged)
-<p>e.txt (bugged)
-<p>documents.zip
+# Build it Yourself
+Clone this repo<br>
+Select Solutions Configuration to Debugx64(With Console)<br>
+Select Solutions Configuration to Releasex86(No Console)<br>
